@@ -1,0 +1,28 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t mgulius90/react-test -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run mgulius90/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t mgulius90/multi-client ./client
+  - docker build -t mgulius90/multi-nginx ./nginx
+  - docker build -t mgulius90/multi-server ./server
+  - docker build -t mgulius90/multi-worker ./worker
+
+  # login en docker CLI
+
+- echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # agarrar las imagenes y meterlas en docker hub
+
+- docker push mgulius90/multi-client
+- docker push mgulius90/multi-nginx
+- docker push mgulius90/multi-server
+- docker push mgulius90/multi-worker
+
