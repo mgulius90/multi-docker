@@ -3,11 +3,11 @@ services:
   - docker
 
 before_install:
-  - docker build -t mgulius90/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t mgulius90/multi-docker -f ./client/Dockerfile.dev ./client
 
 
 script:
-  - docker run mgulius90/react-test npm test -- --coverage
+  - docker run mgulius90/multi-docker npm test -- --coverage
 
 after_success:
   - docker build -t mgulius90/multi-client ./client
