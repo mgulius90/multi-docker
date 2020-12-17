@@ -17,12 +17,12 @@ after_success:
 
   # login en docker CLI
 
-- echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # agarrar las imagenes y meterlas en docker hub
 
-- docker push mgulius90/multi-client
-- docker push mgulius90/multi-nginx
-- docker push mgulius90/multi-server
-- docker push mgulius90/multi-worker
+  - docker push mgulius90/multi-client
+  - docker push mgulius90/multi-nginx
+  - docker push mgulius90/multi-server
+  - docker push mgulius90/multi-worker
 
